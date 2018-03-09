@@ -1,29 +1,46 @@
 #include <queue>
-//#include "passengers.cpp"/"passengers.h"
-//#include "building.cpp/.h"
+#include "Building.h"
+#include "Elevator_manager.h"
+#include "Passenger.h"
+
 
 
 #pragma once
 class Elevator
 {
 public:
-	//Up=0, Down=1. If up, the elevator goes up. If down, the elevator does down. 
-	enum direction { up, down };
-	//This queue would need to be ordered, and acts as our range of floors in the building. Each floor may or may not be populated with a passenger, 
-	std::queue<Floor> elev;
-	int current_floor;
-	size_t total_capacity = elev.size();
-	//Easter egg emergency button. Only to be used if elevator breaks down.
+
+	//-------------------Variables------------------
+	enum direction { up, down, idle };	// Direction.Up represents 0, Direction.down represents 1. direction.idle represents 2.
+	std::queue<Passenger> elev;		// Queue of passengers entering the elevator.
+	int current_floor;				// Current floor of elevator in relation to 
 	bool emergency_button = false;
-	int elevator_number;
-	bool not_moving;
+	int elevator_number;			// Consider use as elevator ID.
 
 
-	
-	
-	
+
+	//--------------Constructors--------------------
 	Elevator();
+	Elevator(int ID, int _cur_floor) {  //Constructor accepts 2 values, elevator ID, and starting floor to assign to our current floor for initialization
+		elevator_number = ID;
+		current_floor = _cur_floor;
+	}
 	~Elevator();
+
+
+	//-------------Functions------------------------
+	void setCurrentFloor(int floor_num) { // Setter for our current floor
+		current_floor = floor_num;
+	}
+
+	void prioritizePassengers() {  //Will be used to prioritize passengers in our queue, elev.\
+								    Should swap users in place determined by their destination, and distance from destination
+
+	}
+
+	void moveElevator() {		  //Will move up or down depending on the first passenger in the queue, elev. 
+
+	}
 
 };
 
