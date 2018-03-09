@@ -6,7 +6,7 @@ Building::Building()
 	floors = 0;
 }
 
-int Building::get_elevators() const
+int Building::get_elevators() 
 {
 	return elevators;
 }
