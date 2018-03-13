@@ -199,7 +199,7 @@ void getInput(int &e_num, int &f_num, int &p_num) //#Elevator, #Floors, #passeng
 	}
 
 
-	cout << "Please enter the number of passenger" << endl;
+	cout << "Please enter the number of passengers" << endl;
 	cin >> p_num;
 	while (p_num <= 0) {
 		cout << "You must have at least 1 passenger\n";
