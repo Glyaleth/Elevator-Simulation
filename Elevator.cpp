@@ -1,12 +1,15 @@
 #include "Elevator.h"
 #include <vector>
 
-
-Elevator::Elevator()
+Class Elevator{
+  private:
+  public:
+Elevator::Elevator(int e_num)
 {
 }
 
 
 Elevator::~Elevator()
 {
+}
 }
