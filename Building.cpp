@@ -82,4 +82,17 @@ void Building::passenger_exit(int n)
 	exit_passengers += n;
 }
 
+void Building::add_Passenger(Passenger the_passenger, int direction)
+{
+	//***TODO*** BUILDING: Create function that takes in a passenger and pushes them into their queue(based on their direction)
+
+}
+
+void Building::Decide()
+{
+	//***TODO*** BUILDING: function to iterate through each elevator and decide which floor to go to
+	//***TODO*** BUILDING : decide function should call My_Elevator.move(next_floor); -->function to move elevator to next_floor, should return void
+
+}
+
 
