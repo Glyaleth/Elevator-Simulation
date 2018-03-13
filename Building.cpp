@@ -85,6 +85,15 @@ void Building::passenger_exit(int n)
 void Building::add_Passenger(Passenger the_passenger, int direction)
 {
 	//***TODO*** BUILDING: Create function that takes in a passenger and pushes them into their queue(based on their direction)
+	if(direction == 1)//if going up 
+		up_requests.push(the_passenger); 
+	else if(direction == 2)
+		down_requests.push(the_passenger); 
+	else
+		cout << "Something is wrong with the direction simulator." << endl;
+	
+	// std::priority_queue<int, std::vector<int>, std::greater<int> third (myints,myints+4) has minimum value at top
+	//priority queue has problem of having greatest value at top w/ FIFO
 
 }
 
