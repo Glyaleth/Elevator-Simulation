@@ -1,10 +1,3 @@
-//
-//  Elevator_manager.cpp
-//  elevator
-//
-
-//
-
 #include "Building.h"
 #include "Elevator.h"
 #include "Passenger.h"
@@ -85,23 +78,27 @@ void Building::passenger_exit(int n)
 void Building::add_Passenger(Passenger the_passenger, int direction)
 {
 	//***TODO*** BUILDING: Create function that takes in a passenger and pushes them into their queue(based on their direction)
-	if(direction == 1)//if going up 
-		up_requests.push(the_passenger); 
-	else if(direction == 2)
-		down_requests.push(the_passenger); 
+	if (direction == 1)//if going up 
+		up_requests.push(the_passenger);
+	else if (direction == 2)
+		down_requests.push(the_passenger);
 	else
 		cout << "Something is wrong with the direction simulator." << endl;
-	
+
 	// std::priority_queue<int, std::vector<int>, std::greater<int> third (myints,myints+4) has minimum value at top
 	//priority queue has problem of having greatest value at top w/ FIFO
 
 }
 
-void Building::Decide()
+int Building::Decide()
 {
-	//***TODO*** BUILDING: function to iterate through each elevator and decide which floor to go to
+	//***TODO*** BUILDING: function to iterate through each elevator and decide which floor to go to 
+	int d_floor;
+	for (int i = )
+		if (Elevator_vec[i].get_direction() == 1)
+			d_floor = up_requests.top.getDestin(); //lolwhat
+	return d_floor; 
+
 	//***TODO*** BUILDING : decide function should call My_Elevator.move(next_floor); -->function to move elevator to next_floor, should return void
 
 }
-
-
