@@ -4,31 +4,40 @@
 
 #pragma once
 #include <iostream>
+#include "Elevator.h"
+#include "Passenger.h"
+#include <vector>
+#include <Queue>
 using namespace std;
 
 
 
 class Building
 {
-protected:
-    int entry_passengers;
-    int exit_passengers;
-    int elevators, floors;
+private:
+	int entry_passengers;
+	int exit_passengers;
+	int elevators, floors, passengers;
+	vector <Elevator> Elevator_vec;
+	vector <queue<Passenger>> Floor_vec;
+
+
 public:
-    //void get_entry_pass();
-    int current_pass_in_ele();
-    void passenger_entry(int i);
-    void passenger_exit(int n);
-    Building(); //default constructor
-    int get_passengers();
-    int get_elevators();
-    int get_floors();
-    int set_passengers(int p);
-    void set_elevators(int e);
-    void set_floors(int f);
-    void Elevator_Floor(e_num,f_num)
-    
+	Building(int e_num, int f_num); //default constructor
+
+	int get_passengers();
+	int get_elevators();
+	int get_floors();
+	void set_passengers(int p);
+	void set_elevators(int e);
+	void set_floors(int f);
+
+	int current_pass_in_ele(); 
+	void passenger_entry(int i); 
+	void passenger_exit(int n);
+
+	void add_Passenger(Passenger the_passenger, int direction /*1=up 0=down*/);
+	void Decide();
+	
+
 };
-
-
-
