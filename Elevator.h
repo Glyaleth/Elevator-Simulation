@@ -1,6 +1,5 @@
 #include <queue>
 #include "Building.h"
-#include "Elevator_manager.h"
 #include "Passenger.h"
 
 
@@ -19,8 +18,8 @@ public:
 
 
 
-	//--------------Constructors--------------------
-	Elevator();
+									//--------------Constructors--------------------
+	Elevator(int e_num);
 	Elevator(int ID, int _cur_floor) {  //Constructor accepts 2 values, elevator ID, and starting floor to assign to our current floor for initialization
 		elevator_number = ID;
 		current_floor = _cur_floor;
@@ -34,7 +33,7 @@ public:
 	}
 
 	void prioritizePassengers() {  //Will be used to prioritize passengers in our queue, elev.\
-								    Should swap users in place determined by their destination, and distance from destination
+								   								    Should swap users in place determined by their destination, and distance from destination
 
 	}
 
@@ -43,4 +42,3 @@ public:
 	}
 
 };
-
