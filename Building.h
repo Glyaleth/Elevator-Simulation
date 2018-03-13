@@ -20,6 +20,8 @@ private:
 	int elevators, floors, passengers;
 	vector <Elevator> Elevator_vec;
 	vector <queue<Passenger>> Floor_vec;
+	priority_queue <Passenger> up_requests; 
+	priority_queue <Passenger> down_requests;
 
 
 public:
