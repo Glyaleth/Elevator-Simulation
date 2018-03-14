@@ -32,5 +32,5 @@ public:
 
 	void add_Passenger(Passenger the_passenger);
 	void Decide();
-	void loading_passengers(Elevator &elev);
+	void loading_passengers();
 };
