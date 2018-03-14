@@ -109,13 +109,16 @@ void Building::Decide()
 
 
 }
-void Building::loading_passengers(Elevator &elev) //takes in one elevator
+void Building::loading_passengers() //looks at all the elevators in the building, it's current floor and if it needs to load any passengers
 {
+	Elevator elev;
 	Passenger p;
-	for (int i = 0; i < Floor_vec.size() - 1; i++) //for each floor's queue of passengers
-		for (int q = 0; q < Floor_vec[i].size(); q++) //for all the passengers in that queue
-			if (p.getCurrentFloor() == elev.current_floor) {//if that passenger is on that current floor
-				elev.load(p); //load into elevator
+	for (int e = 0; e < Elevator_vec.size() - 1; e++) {//for each elevator in the building
+		for (int i = 0; i < Floor_vec.size() - 1; i++) { //for each floor's queue of passengers
+			for (int q = 0; q < Floor_vec[i].size(); q++) { //for all the passengers in that queue
+				if (p.getCurrentFloor() == elev.current_floor) //if that passenger is on that current floor
+					elev.load(p); //load into elevator
 			}
+		}
+	}
 }
-
