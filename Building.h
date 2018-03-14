@@ -20,8 +20,8 @@ private:
 	int elevators, floors, passengers;
 	vector <Elevator> Elevator_vec;
 	vector <queue<Passenger>> Floor_vec;
-	priority_queue <Passenger> up_requests;
-	priority_queue <Passenger> down_requests;
+	queue <Passenger> up_requests;
+	queue <Passenger> down_requests;
 
 
 public:
@@ -39,7 +39,7 @@ public:
 	void passenger_exit(int n);
 
 	void add_Passenger(Passenger the_passenger, int direction /*1=up 0=down*/);
-	int Decide();
+	void Decide();
 
 
 };
