@@ -90,14 +90,14 @@ void Building::add_Passenger(Passenger the_passenger, int direction)
 
 }
 
-int Building::Decide()
+void Building::Decide()
 {
 	//***TODO*** BUILDING: function to iterate through each elevator and decide which floor to go to 
 	int d_floor;
-	for (int i = )
+	for (int i = 0; i < Elevator_vec.size; i++)
 		if (Elevator_vec[i].get_direction() == 1)
 			d_floor = up_requests.top.getDestin(); //lolwhat
-	return d_floor; 
+	return d_floor;
 
 	//***TODO*** BUILDING : decide function should call My_Elevator.move(next_floor); -->function to move elevator to next_floor, should return void
 
