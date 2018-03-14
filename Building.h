@@ -1,7 +1,3 @@
-//
-//  main.cpp
-//  building manager
-
 #pragma once
 #include <iostream>
 #include "Elevator.h"
@@ -38,7 +34,7 @@ public:
 	void passenger_entry(int i);
 	void passenger_exit(int n);
 
-	void add_Passenger(Passenger the_passenger, int direction /*1=up 0=down*/);
+	void add_Passenger(Passenger the_passenger);
 	void Decide();
 
 
