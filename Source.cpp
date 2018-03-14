@@ -3,6 +3,8 @@
 #include <array>
 #include <stack>
 #include <ctime>
+#include <vector>
+
 
 #include "Passenger.h"
 #include "Building.h"
@@ -18,6 +20,7 @@ void getInput(int &e_num, int &f_num, int &p_num);
 void main() {
 	bool again = true;
 	while (again) {
+
 		cout << "Elevator Simulation\n" << endl;
 		cout << "1.Start Simulation\n" << "2.Exit\n" << endl;
 		int choice;
@@ -32,8 +35,7 @@ void main() {
 
 			Building My_Building(e_num, f_num); //pass #elevators and #floors
 			
-			//***TODO*** BUILDING CLASS: once we get the #elevators we will make a vector of type elevators to keep track of n elevators 
-			Elevator My_Elevator(); 
+			Elevator My_Elevator(25); 
 
 			int count = 0; //counter to calculate what tick we are at
 			int num_arrived = 0; //counts the number of passengers already arrived
@@ -43,41 +45,50 @@ void main() {
 			stack <Passenger> Exitors; //Stack stores all passengers that have exited the elvevator 
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
+				cout << "COUNT: " << count << "\n";
 				srand(time(NULL));
-				int new_arrivals = rand() % 3 + 0; //random # from 0-3 for passengers that just arrived
+
+				int new_arrivals;
+				if (num_arrived >= p_num) {
+					new_arrivals = 0;
+				}
+				else
+					new_arrivals = rand() % p_num - num_arrived + 0; //random # from 0-3 for passengers that just arrived
+
+				num_arrived += new_arrivals;
+
 
 				//Create Passengers
 				for (int i = 0; i < new_arrivals; i++) {
 					Passenger the_passenger(count, IDNum_Count, f_num); //Create a passenger pass the current count & assign IDNumber
 					IDNum_Count++; //Increment IDNum_Counter to give each passenger a unique ID (based on priority, who got here first)
 
-					My_Building.add_Passenger(the_passenger); 
-					//***TODO*** BUILDING: Create function that takes in a passenger and pushes them into their queue (based on their direction)
+					My_Building.add_Passenger(the_passenger);
 				}
 
 
 
 				//Decide where to go
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
-				My_Building.Decide(); 
-					//***TODO*** Building function iterate through each elevator and decide which floor to go to
-					//***TODO*** Within Building, decide function should call My_Elevator.move(next_floor); -->function to move elevator to next_floor, should return void
+				My_Building.Decide();
 
-			
+
+
 				//Once all elevators have moved to their new floor, pop out passengers
 
 				//THIS NEEDS TO BE DONE FOR EACH ELEVATOR
-				while (!My_Elevator.StillExiting()) { //While there are still passengers that need to get off of the elevator 
-					//***TODO*** Create a bool .StillExiting() that checks if there are still passengers that need to get "popped" out of the elevator 
-					
-					Passenger exit_passenger = My_Elevator.Exit(); 
-						//***TODO*** Create function to decide who needs to get off on the current floor it is on									  
-						//***TODO** .Exit() should return the passenger that just exited the elevator
+
+
+				while (My_Elevator.still_exiting()) { //While there are still passengers that need to get off of the elevator 
+
+					Passenger exit_passenger = My_Elevator.exit();
+
+
 
 					exit_passenger.setExitTime(count); //Set the time that the passenger left the elevator to the current count
+
 					
-					cout << "Passenger #" << exit_passenger.getIDNum() << " has arrived at floor: \n";
-					
+
 					Exitors.push(exit_passenger); //store the passenger into the stack of exited passengers
 					num_exited++; //Increment the #passengers exited by 1
 				}
@@ -85,24 +96,35 @@ void main() {
 
 				//After popping out passengers, start pushing new passengers into elevator
 				//THIS NEEDS TO BE DONE FOR EACH ELEVATOR 
-				
+
+				/*
 				while (!My_Elevator.StillLoading()) {//While there are still people that need to get into the elevator
-					//***TODO*** create bool StillLoading function that checks if there is still anyone on the current floor that needs to be loaded in
-					
-					Passenger loading_passenger; 
-					//**TODO*** how do we know who need to get on the elevator? 
+
+
+					Passenger loading_passenger;
+
 
 					cout << "Passenger #" << loading_passenger.getIDNum() << " is on elevator #..." << " and is headed to floor #..." << loading_passenger.getDestination() << endl;
-					
-					My_Elevator.load(loading_passenger); 
-					//***TODO*** Create Elevator function to load a passenger into the elevator that takes in the passenger getting loaded, and their destination, and returns void??
+
+					My_Elevator.load(loading_passenger);
+
 
 				}
-				
+				*/
+
+
+				Passenger loading_passenger;
+				My_Elevator.load(loading_passenger);
+
+
+
+
+
+
 
 				//After moving elevator, loading/exiting passengers, increment the counter and loop again
 				count++;
-
+				
 
 			}
 
@@ -139,11 +161,13 @@ void PrintResults(int pass_num, stack <Passenger> Pass_Stack)
 	
 	//Ittereate through Passenger stack, sum up the wait times
 	double sum = 0;
+	/*
 	for (int i = 0; i < pass_num; i++) {
 		Passenger current = Pass_Stack.top();
 		sum += current.getWaitTime();
 		Pass_Stack.pop();
 	}
+	*/
 
 	
 	cout << "Average Wait time:" << sum / pass_num<< endl;
