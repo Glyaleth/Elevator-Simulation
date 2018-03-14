@@ -110,12 +110,12 @@ void Building::Decide()
 
 }
 
-/*bool StillLoading(){
+bool StillLoading(){
 	for(int i=0;i<floor;i++){
-	for(auto ptr=PassengerQ.begin(); ptr!=PassengerQ.end();++ptr) {
-		if (*ptr.getCurrentFloor() == current_floor) {
-			elev_passengers.add_Passenger(the_passenger)
-			return true;
+		for(auto ptr=Floor_vec[i].begin(); ptr!=Floor_vec[i].end();++ptr) {
+			if (*ptr.getCurrentFloor() == current_floor) {
+				elev_passengers.add_Passenger(the_passenger)
+					return true;
 		}
 	}
 	}
@@ -123,5 +123,5 @@ void Building::Decide()
 	return false;
 
 	
-}*/
+}
 
