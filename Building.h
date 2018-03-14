@@ -1,13 +1,10 @@
-
 #pragma once
 #include <iostream>
 #include "Elevator.h"
 #include "Passenger.h"
 #include <vector>
-#include <Queue>
+#include <queue>
 using namespace std;
-
-
 
 class Building
 {
@@ -16,9 +13,7 @@ private:
 	int exit_passengers;
 	int elevators, floors, passengers;
 	vector <Elevator> Elevator_vec;
-	vector <queue<Passenger>> Floor_vec;
-	queue <Passenger> up_requests;
-	queue <Passenger> down_requests;
+	vector <std::queue<Passenger>> Floor_vec;
 
 
 public:
@@ -37,6 +32,5 @@ public:
 
 	void add_Passenger(Passenger the_passenger);
 	void Decide();
-
-
+	void loading_passengers(Elevator &elev);
 };
