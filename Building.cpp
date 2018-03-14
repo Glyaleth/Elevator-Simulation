@@ -13,16 +13,13 @@ Building::Building(int e_num, int f_num)
 	elevators = e_num;
 	floors = f_num;
 
-	vector <Elevator> Elevator_vec;
-	vector <queue<Passenger>> Floor_vec;
-
 	for (int i = 0; i < elevators; i++) { //create i elevators and assign unique IDnumbers
 		Elevator my_elev(i);
 		Elevator_vec.push_back(my_elev);
 	}
 
 	for (int i = 0; i < floors; i++) { //create i floors, put a queue of passengers in each floor
-		queue <Passenger> PassengerQ();
+		queue <Passenger> PassengerQ;
 		Floor_vec.push_back(PassengerQ);
 	}
 }
@@ -75,18 +72,13 @@ void Building::passenger_exit(int n)
 	exit_passengers += n;
 }
 
-void Building::add_Passenger(Passenger the_passenger, int direction)
+void Building::add_Passenger(Passenger the_passenger)
 {
 	//***TODO*** BUILDING: Create function that takes in a passenger and pushes them into their queue(based on their direction)
-	if (direction == 1)//if going up 
-		up_requests.push(the_passenger);
-	else if (direction == 2)
-		down_requests.push(the_passenger);
-	else
-		cout << "Something is wrong with the direction simulator." << endl;
-
-	// std::priority_queue<int, std::vector<int>, std::greater<int> third (myints,myints+4) has minimum value at top
-	//priority queue has problem of having greatest value at top w/ FIFO
+	for (int i = 1; i < Floor_vec.size() - 1; i++) {
+		if (i == the_passenger.getCurrentFloor())
+			Floor_vec[i].push(the_passenger);
+	}
 
 }
 
@@ -94,10 +86,22 @@ void Building::Decide()
 {
 	//***TODO*** BUILDING: function to iterate through each elevator and decide which floor to go to 
 	int d_floor;
-	for (int i = 0; i < Elevator_vec.size; i++)
-		if (Elevator_vec[i].get_direction() == 1)
-			d_floor = up_requests.top.getDestin(); //lolwhat
-	return d_floor;
+	for (int i = 0; i < Elevator_vec.size; i++) {
+		d_floor = Elevator_vec[i].elev_passenger.front.getDestination();
+		if (d_floor > Elevator_vec[i].getCurrentFloor()) { //going up 
+			for (int p = 0; p < Elevator_vec[i].elev_passenger.size(); p++) {
+				if ((Elevator_vec[i].elev_passenger[p].getDestination() > Elevator_vec[i].getCurrentFloor()) && (Elevator_vec[i].elev_passenger[p].getDestination() < d_floor))
+					d_floor = Elevator_vec[i].elev_passenger[p].getDestination();
+			}
+		}
+		else if (d_floor < Elevator_vec[i].getCurrentFloor()) { //going down 
+			for (int p = 0; p < Elevator_vec[i].elev_passenger.size(); p++) {
+				if ((Elevator_vec[i].elev_passenger[p].getDestination() < Elevator_vec[i].getCurrentFloor()) && (Elevator_vec[i].elev_passenger[p].getDestination() > d_floor))
+					d_floor = Elevator_vec[i].elev_passenger[p].getDestination();
+			}
+		}
+		Elevator_vec[i].setCurrentFloor(d_floor);
+	}
 
 	//***TODO*** BUILDING : decide function should call My_Elevator.move(next_floor); -->function to move elevator to next_floor, should return void
 
