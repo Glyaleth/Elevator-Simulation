@@ -110,3 +110,18 @@ void Building::Decide()
 
 }
 
+/*bool StillLoading(){
+	for(int i=0;i<floor;i++){
+	for(auto ptr=PassengerQ.begin(); ptr!=PassengerQ.end();++ptr) {
+		if (*ptr.getCurrentFloor() == current_floor) {
+			elev_passengers.add_Passenger(the_passenger)
+			return true;
+		}
+	}
+	}
+		
+	return false;
+
+	
+}*/
+
