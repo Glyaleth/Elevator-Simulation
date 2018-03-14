@@ -1,7 +1,7 @@
+#include <iostream>
 #include "Building.h"
 #include "Elevator.h"
 #include "Passenger.h"
-#include <iostream>
 #include <vector>
 #include <queue>
 using namespace std;
@@ -85,10 +85,10 @@ void Building::add_Passenger(Passenger the_passenger)
 
 void Building::Decide()
 {
-	int d_floor=-1;
-	for (int i = 0; i < Elevator_vec.size()-1; i++) {
+	int d_floor = -1;
+	for (int i = 0; i < Elevator_vec.size() - 1; i++) {
 		if (!Elevator_vec[i].getIdel()) {
-			cout << "elev.get.front.destin: "<<Elevator_vec[i].getElevPass().front().getDestination()<<endl;
+			cout << "elev.get.front.destin: " << Elevator_vec[i].getElevPass().front().getDestination() << endl;
 			d_floor = Elevator_vec[i].elev_passengers.front().getDestination();
 
 			if (d_floor > Elevator_vec[i].getCurrentFloor()) { //going up 
@@ -109,19 +109,13 @@ void Building::Decide()
 
 
 }
-
-bool StillLoading(){
-	for(int i=0;i<floor;i++){
-		for(auto ptr=Floor_vec[i].begin(); ptr!=Floor_vec[i].end();++ptr) {
-			if (*ptr.getCurrentFloor() == current_floor) {
-				elev_passengers.add_Passenger(the_passenger)
-					return true;
-		}
-	}
-	}
-		
-	return false;
-
-	
+void Building::loading_passengers(Elevator &elev) //takes in one elevator
+{
+	Passenger p;
+	for (int i = 0; i < Floor_vec.size() - 1; i++) //for each floor's queue of passengers
+		for (int q = 0; q < Floor_vec[i].size(); q++) //for all the passengers in that queue
+			if (p.getCurrentFloor() == elev.current_floor) {//if that passenger is on that current floor
+				elev.load(p); //load into elevator
+			}
 }
 
