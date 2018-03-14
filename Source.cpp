@@ -98,8 +98,7 @@ void main() {
 
 				}
 				*/
-				for (int i = 0; i < My_Building.get_elevators() - 1; i++)//for each elevator
-					i.loading_passengers(); //for each elevator, load people ???
+				My_Building.loading_passengers(); //for each elevator, load passengers according to what floor it's on
 
 				//After moving elevator, loading/exiting passengers, increment the counter and loop again
 				count++;
