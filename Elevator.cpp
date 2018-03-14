@@ -2,7 +2,14 @@
 #include <vector>
 using namespace std;
 
-
+Elevator::Elevator()
+{
+	elevator_number = 0;
+	current_floor = 0;
+	vector <Passenger> elev_passengers;
+	elev_passengers.resize(10);
+	idel = true;
+}
 
 Elevator::Elevator(int ID)
 {
