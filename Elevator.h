@@ -19,7 +19,7 @@ public:
 
 
 	//--------------Constructor--------------------
-	
+	Elevator(); //Default Constructor
 	Elevator(int ID);
 
 	
