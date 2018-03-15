@@ -12,8 +12,9 @@ private:
 	int entry_passengers;
 	int exit_passengers;
 	int elevators, floors, passengers;
-	vector <Elevator> Elevator_vec;
-	vector <std::queue<Passenger>> Floor_vec;
+	vector<Elevator> Elevator_vec;
+	vector<queue<Passenger>> Floor_vec;
+	
 
 
 public:
