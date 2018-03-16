@@ -18,7 +18,7 @@ Building::Building(int e_num, int f_num)
 		Elevator_vec.push_back(my_elev);
 	}
 
-	for (int i = 1; i <= floors; i++) { //create i floors, put a queue of passengers in each floor
+	for (int i = 1; i <= floors; i++) { //create i floors, put a queue of passengers in every floor
 		queue <Passenger> PassengerQ;
 		Floor_vec.push_back(PassengerQ);
 	}
