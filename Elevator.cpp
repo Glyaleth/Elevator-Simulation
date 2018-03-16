@@ -16,19 +16,18 @@ Elevator::Elevator(int ID)
 {
 	//Constructor acceptselevator ID, 
 
-		elevator_number = ID;
-		cout << "Creating elevator #" << elevator_number<<endl;
-		current_floor = 0;
-		vector <Passenger> elev_passengers;
-		elev_passengers.resize(10);
-		idel = true;
-		
+	elevator_number = ID;
+	current_floor = 1;
+	vector <Passenger> elev_passengers;
+	//elev_passengers.resize(10);
+	idel = true;
+
 
 }
 
 int Elevator::getCurrentFloor()
 {
-		return current_floor;
+	return current_floor;
 }
 
 bool Elevator::getEmergency_Button()
@@ -48,7 +47,10 @@ vector<Passenger> Elevator::getElevPass()
 
 bool Elevator::getIdel()
 {
-	return idel;
+	if (elev_passengers.empty() == false)
+		return false; //if people in the elevator
+	else if (elev_passengers.empty()==true)
+		return true; //if empty, it is idle
 }
 
 void Elevator::setCurrentFloor(int f)
@@ -74,6 +76,9 @@ void Elevator::setIdel(bool i)
 
 bool Elevator::still_exiting()
 {
+	if (elev_passengers.size() == 0) { //if no one is in the elevator, it's no longer exiting
+		return false;
+	}
 	for (int i = 0; i < elev_passengers.size(); i++) {
 		if (elev_passengers[i].getDestination() == current_floor) {
 			return true;
@@ -84,10 +89,11 @@ bool Elevator::still_exiting()
 
 Passenger Elevator::exit()
 {
-	for (int i = 0; i < elev_passengers.size() - 1; i++) {
+	for (int i = 0; i < elev_passengers.size(); i++) {
 		if (elev_passengers[i].getDestination() == current_floor) {
 			Passenger pass = elev_passengers[i];
 			elev_passengers.erase(elev_passengers.begin() + i);
+			cout << pass.getIDNum() << " EXITED on floor " << current_floor << endl;
 			return pass;
 		}
 	}
