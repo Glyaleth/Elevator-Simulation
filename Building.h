@@ -4,6 +4,7 @@
 #include "Passenger.h"
 #include <vector>
 #include <queue>
+#include <stack>
 using namespace std;
 
 class Building
@@ -14,7 +15,7 @@ private:
 	int elevators, floors, passengers;
 	vector<Elevator> Elevator_vec;
 	vector<queue<Passenger>> Floor_vec;
-	
+
 
 
 public:
@@ -23,6 +24,7 @@ public:
 	int get_passengers();
 	int get_elevators();
 	int get_floors();
+	vector <Elevator> get_ElevatorVec();
 	void set_passengers(int p);
 	void set_elevators(int e);
 	void set_floors(int f);
@@ -33,5 +35,6 @@ public:
 
 	void add_Passenger(Passenger the_passenger);
 	void Decide();
-	void loading_passengers();
+	void loading_passengers(int elev, int floor);
+	int unloading_passengers(int c, stack <Passenger> &Exitors);
 };
