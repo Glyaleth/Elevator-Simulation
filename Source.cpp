@@ -39,7 +39,7 @@ void main() {
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
 				cout << "COUNT: " << count << "\n";
-				//srand(time(NULL));
+				//srand(time(NULL));//do not need this
 
 				int new_arrivals;
 				if (num_arrived >= p_num) { //if the #arrived passengers >= #passengers that we wanted total
