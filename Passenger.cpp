@@ -4,13 +4,27 @@
 #include "Passenger.h"
 using namespace std;
 
+
+
 Passenger::Passenger(int arrive, int ID, int numFloor)
 {
-	srand(time(NULL));
+	//srand(time(0));
 	ArrivalTime = arrive;
-	CurrentFloor = rand() % numFloor + 1; //random number from 1-number of floors 
-	Destination = rand() % numFloor + 1; //random number from 1-number of floors 
+	CurrentFloor = 1+ (rand() % (numFloor-1)); //random number from 1-number of floors 
+	
+	Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
+
+	//srand(time(NULL));
+	while (Destination == CurrentFloor) {
+		//if they are already on the floor they want to go to, have them pick another floor
+		Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
+
+	}
+
+	
+
 	IDNum = ID;
+
 }
 
 int Passenger::getArrivalTime()
@@ -40,24 +54,19 @@ int Passenger::getWaitTime()
 	return WaitTime;
 }
 
-int Passenger::getDirection(int numFloor)
-{
-	srand(time(NULL));
-	while (Destination == CurrentFloor) {
-		//if they are already on the floor they want to go to, have them pick another floor
-		Destination = rand() % numFloor + 1; //random number from 1-number of floors 
-		cout << "Generating new destination... \n";
-	}
 
-	if (Destination > CurrentFloor)
-		return 1; //if they are going up
-	else if (Destination < CurrentFloor)
-		return 0; //if they are going down
-}
 
 int Passenger::getIDNum()
 {
 	return IDNum;
+}
+
+int Passenger::getDirection()
+{
+	if (CurrentFloor > Destination) //if going up
+		return 1;
+	else if (CurrentFloor < Destination) //if going down
+		return 0;
 }
 
 void Passenger::setArrivalTime(int AT)
@@ -89,5 +98,3 @@ void Passenger::setIDNum(int ID)
 {
 	IDNum = ID;
 }
-
-
