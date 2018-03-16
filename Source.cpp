@@ -80,6 +80,7 @@ void main() {
 			return;
 		}
 	}
+	/*Do we want to see if the user wants to play again ?*/
 	system("pause");
 }
 
