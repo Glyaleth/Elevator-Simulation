@@ -88,7 +88,7 @@ void Building::Decide()
 
 	for (int i = 1; i <= Elevator_vec.size(); i++) {
 		int d_floor = -1;
-		//floor_vec is a vector,why we start with index 1 ?whats in index 0?
+		//floor_vec is a vector,why we start with index 1 ?whats in index 0??
 		if (Floor_vec[i].empty() == false) { //if current floor has passengers
 			d_floor = i;
 		}
