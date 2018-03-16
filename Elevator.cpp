@@ -8,7 +8,7 @@ Elevator::Elevator()
 	elevator_number = 0;
 	current_floor = 0;
 	vector <Passenger> elev_passengers;
-	elev_passengers.resize(10);
+	elev_passengers.resize(10);//did we delete this resize function on the .cpp?
 	idel = true;
 }
 
