@@ -22,7 +22,7 @@ void main() {
 		cin >> choice;
 
 		if (choice == 1) {
-			int e_num = -1; //#elevators
+			int e_num = -1; //#elevators//do we need to set this default value?
 			int f_num = -1; //#floors
 			int p_num; //#passengers
 
