@@ -52,7 +52,7 @@ void main() {
 				num_arrived += new_arrivals; //increment #passengers already arrived
 				cout << "new arrivals " << new_arrivals << endl;
 
-
+/*when we create passenger ,we store passenger two dequeues based on their current floor &destination*/
 				for (int i = 0; i < new_arrivals; i++) {
 					Passenger the_passenger(count, IDNum_Count, f_num); //Create a passenger pass the current count & assign IDNumber
 					IDNum_Count++; //Increment IDNum_Counter to give each passenger a unique ID (based on priority, who got here first)
