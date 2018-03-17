@@ -2,7 +2,7 @@
 #include <string>
 #include <array>
 #include <stack>
-#include <ctime>//do we need this?
+#include <ctime>
 #include <vector>
 #include "Passenger.h"
 #include "Building.h"
@@ -22,7 +22,7 @@ void main() {
 		cin >> choice;
 
 		if (choice == 1) {
-			int e_num = -1; //#elevators//do we need to set this default value?
+			int e_num = -1; //#elevators
 			int f_num = -1; //#floors
 			int p_num; //#passengers
 
@@ -39,7 +39,7 @@ void main() {
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
 				cout << "COUNT: " << count << "\n";
-				//srand(time(NULL));//do not need this
+				//srand(time(NULL));
 
 				int new_arrivals;
 				if (num_arrived >= p_num) { //if the #arrived passengers >= #passengers that we wanted total
@@ -52,7 +52,7 @@ void main() {
 				num_arrived += new_arrivals; //increment #passengers already arrived
 				cout << "new arrivals " << new_arrivals << endl;
 
-/*when we create passenger ,we store passenger two dequeues based on their current floor &destination*/
+
 				for (int i = 0; i < new_arrivals; i++) {
 					Passenger the_passenger(count, IDNum_Count, f_num); //Create a passenger pass the current count & assign IDNumber
 					IDNum_Count++; //Increment IDNum_Counter to give each passenger a unique ID (based on priority, who got here first)
@@ -61,14 +61,16 @@ void main() {
 					cout << "Pass "<<the_passenger.getIDNum()<<" is at floor " << the_passenger.getCurrentFloor()<<" & going to " <<the_passenger.getDestination()<< endl;
 				}
 
-
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
 				My_Building.Decide();
 
 				//Once elevator has moved, unload the passengers & count how many got off
 				num_exited += My_Building.unloading_passengers(count, Exitors);
-							
 
+
+				
+
+				
 				count++;
 			}
 
@@ -80,7 +82,6 @@ void main() {
 			return;
 		}
 	}
-	/*Do we want to see if the user wants to play again ?*/
 	system("pause");
 }
 
