@@ -87,6 +87,8 @@ void Building::add_Passenger(Passenger the_passenger)
 //when we randomly give the passenger a destination &current floor,we store the same passenger in two dequeues(one to decide 
 //when to pick them up,one decides when to unload them) and the order we store the passenger in the dequeue will be 
 //based on their current floor and destination floor(which floor is closer to the current floor that evevator is on))
+//So we can get two priority dequeues
+//where we store passenger info?
 void Building::Decide()
 {
 
