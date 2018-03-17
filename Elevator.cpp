@@ -1,5 +1,5 @@
-#include <iostream>
 #include "Elevator.h"
+#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -8,7 +8,7 @@ Elevator::Elevator()
 	elevator_number = 0;
 	current_floor = 0;
 	vector <Passenger> elev_passengers;
-	elev_passengers.resize(10);//did we delete this resize function on the .cpp?
+	elev_passengers.resize(10);
 	idel = true;
 }
 
@@ -47,10 +47,14 @@ vector<Passenger> Elevator::getElevPass()
 
 bool Elevator::getIdel()
 {
-	if (elev_passengers.empty() == false)
+	if (elev_passengers.empty() == false){
+		idel = false;
 		return false; //if people in the elevator
-	else if (elev_passengers.empty()==true)
+	}
+	else if (elev_passengers.empty() == true) {
+		idel = true;
 		return true; //if empty, it is idle
+	}
 }
 
 void Elevator::setCurrentFloor(int f)
@@ -103,3 +107,4 @@ void Elevator::load(Passenger passe)
 {
 	elev_passengers.push_back(passe);
 }
+
