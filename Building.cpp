@@ -18,7 +18,7 @@ Building::Building(int e_num, int f_num)
 		Elevator_vec.push_back(my_elev);
 	}
 
-	for (int i = 1; i <= floors; i++) { //create i floors, put a queue of passengers in every floor
+	for (int i = 1; i <= floors; i++) { //create i floors, put a queue of passengers in each floor
 		queue <Passenger> PassengerQ;
 		Floor_vec.push_back(PassengerQ);
 	}
@@ -83,18 +83,21 @@ void Building::add_Passenger(Passenger the_passenger)
 
 }
 
+
+
 //use double-ended priority queue?-->dequeue
 //when we randomly give the passenger a destination &current floor,we store the same passenger in two dequeues(one to decide 
 //when to pick them up,one decides when to unload them) and the order we store the passenger in the dequeue will be 
 //based on their current floor and destination floor(which floor is closer to the current floor that evevator is on))
 //So we can get two priority dequeues
 //where we store passenger info?
+
+
 void Building::Decide()
 {
 
 	for (int i = 1; i <= Elevator_vec.size(); i++) {
 		int d_floor = -1;
-		//floor_vec is a vector,why we start with index 1 ?whats in index 0??
 		if (Floor_vec[i].empty() == false) { //if current floor has passengers
 			d_floor = i;
 		}
@@ -111,7 +114,9 @@ void Building::Decide()
 					}
 					int cf = Elevator_vec[i - 1].getCurrentFloor(); //get current floor of elevator
 					for (cf + 1; cf < d_floor; cf++) { //for each floor on the way to d_floor
-						if (Floor_vec[i - 1].front().getDirection()) //if the first person at that floor is also going up
+						if (Floor_vec[i - 1].empty())
+							continue;
+						else if (Floor_vec[i - 1].front().getDirection()) //if the first person at that floor is also going up
 							d_floor = Floor_vec[i - 1].front().getDestination();
 					}
 				}
@@ -122,7 +127,9 @@ void Building::Decide()
 					}
 					int cf = Elevator_vec[i - 1].getCurrentFloor(); //get current floor of elevator
 					for (cf - 1; cf > d_floor; cf--) { //for each floor on the way to d_floor
-						if (Floor_vec[i - 1].front().getDirection()==0) //if the first person at that floor is also going down
+						if (Floor_vec[i - 1].empty())
+							continue;
+						else if (Floor_vec[i - 1].front().getDirection()==0) //if the first person at that floor is also going down
 							d_floor = Floor_vec[i - 1].front().getDestination();
 					}
 				}
