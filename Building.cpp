@@ -83,7 +83,9 @@ void Building::add_Passenger(Passenger the_passenger)
 
 }
 
-//use double-ended priority queue?
+//use double-ended priority queue?-->dequeue
+//when we randomly give the passenger a destination &current floor,we store their
+//current floor and destination in two dequeues with order(which floor is closer to the current floor that evevator is on))
 void Building::Decide()
 {
 
