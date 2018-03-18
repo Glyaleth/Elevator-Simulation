@@ -14,15 +14,11 @@ Elevator::Elevator()
 
 Elevator::Elevator(int ID)
 {
-	//Constructor acceptselevator ID, 
-
+	//Constructor
 	elevator_number = ID;
 	current_floor = 1;
 	vector <Passenger> elev_passengers;
-	//elev_passengers.resize(10);
 	idel = true;
-
-
 }
 
 int Elevator::getCurrentFloor()
@@ -47,7 +43,7 @@ vector<Passenger> Elevator::getElevPass()
 
 bool Elevator::getIdel()
 {
-	if (elev_passengers.empty() == false){
+	if (elev_passengers.empty() == false) {
 		idel = false;
 		return false; //if people in the elevator
 	}
@@ -97,7 +93,7 @@ Passenger Elevator::exit()
 		if (elev_passengers[i].getDestination() == current_floor) {
 			Passenger pass = elev_passengers[i];
 			elev_passengers.erase(elev_passengers.begin() + i);
-			cout << pass.getIDNum() << " EXITED on floor " << current_floor << endl;
+			cout << "EXITING: Passenger " << pass.getIDNum() << " on floor [" << current_floor << "]\n";
 			return pass;
 		}
 	}
@@ -107,4 +103,3 @@ void Elevator::load(Passenger passe)
 {
 	elev_passengers.push_back(passe);
 }
-
