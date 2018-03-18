@@ -4,27 +4,19 @@
 #include "Passenger.h"
 using namespace std;
 
-
-
 Passenger::Passenger(int arrive, int ID, int numFloor)
 {
-	//srand(time(0));
 	ArrivalTime = arrive;
-	CurrentFloor = 1+ (rand() % (numFloor-1)); //random number from 1-number of floors 
-	
-	Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
+	CurrentFloor = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
 
-	//srand(time(NULL));
+	Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
+												 
 	while (Destination == CurrentFloor) {
 		//if they are already on the floor they want to go to, have them pick another floor
 		Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
-
 	}
 
-	
-
 	IDNum = ID;
-
 }
 
 int Passenger::getArrivalTime()
@@ -53,8 +45,6 @@ int Passenger::getWaitTime()
 	WaitTime = ExitTime - ArrivalTime;
 	return WaitTime;
 }
-
-
 
 int Passenger::getIDNum()
 {
