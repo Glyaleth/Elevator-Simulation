@@ -20,6 +20,4 @@ public:
 	void setDestination(int Destin);
 	void setDirection(int D);
 	void setIDNum(int ID);
-
-
 };
