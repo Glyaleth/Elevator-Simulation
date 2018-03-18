@@ -6,8 +6,6 @@
 #include <queue>
 using namespace std;
 
-
-
 Building::Building(int e_num, int f_num)
 {
 	elevators = e_num;
@@ -60,8 +58,6 @@ void Building::set_floors(int f)
 	floors = f;
 }
 
-
-
 int Building::current_pass_in_ele()
 {
 	return entry_passengers - exit_passengers;
@@ -83,8 +79,6 @@ void Building::add_Passenger(Passenger the_passenger)
 
 }
 
-
-
 //use double-ended priority queue?-->dequeue
 //when we randomly give the passenger a destination &current floor,we store the same passenger in two dequeues(one to decide 
 //when to pick them up,one decides when to unload them) and the order we store the passenger in the dequeue will be 
@@ -92,25 +86,24 @@ void Building::add_Passenger(Passenger the_passenger)
 //So we can get two priority dequeues
 //where we store passenger info?
 
-
 void Building::Decide()
 {
-
 	for (int i = 1; i <= Elevator_vec.size(); i++) {
 		int d_floor = -1;
-		if (Floor_vec[i].empty() == false) { //if current floor has passengers
+		if (Floor_vec[i].empty() == false)  //if current floor has passengers
 			d_floor = i;
-		}
+
 		else { //else move to another floor
-			if (Elevator_vec[i - 1].getIdel() == false) { //If elevator is in use
+			//IF ELEVATOR NOT IN USE/IDEL
+			if (Elevator_vec[i - 1].getIdel() == false) { 
 				d_floor = Elevator_vec[i - 1].elev_passengers.front().getDestination();
 
-				if (d_floor > Elevator_vec[i - 1].getCurrentFloor()) { //going up 
+				//GOING UP: 
+				if (d_floor > Elevator_vec[i - 1].getCurrentFloor()) {
 					for (int p = 0; p < Elevator_vec[i - 1].elev_passengers.size(); p++) { //for every passenger in the elevator
-						//if someone else in the elevator is going somehwere alone the way (between front's destination and current floor) --> go there first
+																						   //if someone else in the elevator is going somehwere alone the way (between front's destination and current floor) --> go there first
 						if ((Elevator_vec[i - 1].elev_passengers[p].getDestination() > Elevator_vec[i - 1].getCurrentFloor()) && (Elevator_vec[i - 1].elev_passengers[p].getDestination() < d_floor))
 							d_floor = Elevator_vec[i - 1].elev_passengers[p].getDestination();
-
 					}
 					int cf = Elevator_vec[i - 1].getCurrentFloor(); //get current floor of elevator
 					for (cf + 1; cf < d_floor; cf++) { //for each floor on the way to d_floor
@@ -120,7 +113,8 @@ void Building::Decide()
 							d_floor = Floor_vec[i - 1].front().getDestination();
 					}
 				}
-				else if (d_floor < Elevator_vec[i - 1].getCurrentFloor()) { //going down 
+				//GOING DOWN:
+				else if (d_floor < Elevator_vec[i - 1].getCurrentFloor()) {
 					for (int p = 0; p < Elevator_vec[i - 1].elev_passengers.size(); p++) {
 						if ((Elevator_vec[i - 1].elev_passengers[p].getDestination() < Elevator_vec[i - 1].getCurrentFloor()) && (Elevator_vec[i - 1].elev_passengers[p].getDestination() > d_floor))
 							d_floor = Elevator_vec[i - 1].elev_passengers[p].getDestination();
@@ -129,57 +123,48 @@ void Building::Decide()
 					for (cf - 1; cf > d_floor; cf--) { //for each floor on the way to d_floor
 						if (Floor_vec[i - 1].empty())
 							continue;
-						else if (Floor_vec[i - 1].front().getDirection()==0) //if the first person at that floor is also going down
+						else if (Floor_vec[i - 1].front().getDirection() == 0) //if the first person at that floor is also going down
 							d_floor = Floor_vec[i - 1].front().getDestination();
 					}
 				}
-				
-
 			}
-			else if (Elevator_vec[i-1].getIdel() == true) { //If elevator is not in use
+			//ELEVATOR NOT IN USE: 
+			else if (Elevator_vec[i - 1].getIdel() == true) {
 				for (int k = 0; k < Floor_vec.size(); k++) {
 					if (!Floor_vec[k].empty()) { //if there is someone on this floor 
 						d_floor = k;//go to that floor
 						break;
 					}
 				}
-
-
 			}
 		}
 
 		if (d_floor == -1) { //if d floor didn't change
-			cout << "Elev " << i << " went nowhere.\n";
+			cout << "Elevator " << i << " went nowhere\n";
 		}
 		else { //move elevator and load passengers
-			cout << "Elev went from floor " << Elevator_vec[i-1].getCurrentFloor();
-			Elevator_vec[i-1].setCurrentFloor(d_floor);
-			cout << " to " << Elevator_vec[i-1].getCurrentFloor() << endl;
-			this->loading_passengers(i-1, d_floor);
+			cout << "Elevator " << i << " went from floor [" << Elevator_vec[i - 1].getCurrentFloor();
+			Elevator_vec[i - 1].setCurrentFloor(d_floor);
+			cout << "] to [" << Elevator_vec[i - 1].getCurrentFloor() << "]\n";
+			this->loading_passengers(i - 1, d_floor);
 		}
 	}
-
-
 }
 
 void Building::loading_passengers(int elev, int floor) //looks at all the elevators in the building, it's current floor and if it needs to load any passengers
 {
-	
 	Passenger p;
 	while (!Floor_vec[floor].empty()) {  //while the current floor's queue is not empty
 		p = Floor_vec[floor].front(); //save the passenger at the front of the queue
 		Elevator_vec[elev].load(p); //load into elevator
 		Floor_vec[floor].pop(); //remove from the queue
-		cout << p.getIDNum() << " LOADING on floor " << floor << endl;
+		cout  << "LOADING: Passenger " << p.getIDNum() << " on floor [" << floor << "]\n";
 	}
-
-
 }
 
 int Building::unloading_passengers(int c, stack<Passenger>& Exitors)
 {
-	int num_exited=0;
-
+	int num_exited = 0;
 	for (int i = 0; i < Elevator_vec.size(); i++) {
 		while (Elevator_vec[i].still_exiting()) { //While there are still passengers that need to get off 
 			Passenger exit_passenger = Elevator_vec[i].exit();
@@ -188,15 +173,5 @@ int Building::unloading_passengers(int c, stack<Passenger>& Exitors)
 			num_exited++; //Increment the #passengers exited by 1
 		}
 	}
-
 	return num_exited;
-
 }
-		
-
-
-
-
-
-
-
