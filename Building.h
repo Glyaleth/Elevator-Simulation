@@ -16,8 +16,6 @@ private:
 	vector<Elevator> Elevator_vec;
 	vector<queue<Passenger>> Floor_vec;
 
-
-
 public:
 	Building(int e_num, int f_num); //default constructor
 
