@@ -16,7 +16,7 @@ void main() {
 	bool again = true;
 	while (again) {
 
-		cout << "Elevator Simulation\n" << endl;
+		cout << "Welcome to the Elevator Simulation! \nPlease insert a number corresponding to one of the options below: \n" << endl;
 		cout << "1.Start Simulation\n" << "2.Exit\n" << endl;
 		int choice;
 		cin >> choice;
@@ -33,44 +33,40 @@ void main() {
 			int count = 0; //counter to calculate what tick we are at
 			int num_arrived = 0; //counts the number of passengers already arrived
 			int IDNum_Count = 0; //counter to keep track of what ID numbers are already used
-			int num_exited = 0; //counter of #passengers who have exited the elevator
-			stack <Passenger> Exitors; //Stack stores all passengers that have exited the elvevator 
+			int num_exited = 0; //counter of passengers who have exited the elevator
+			stack <Passenger> Exitors; //stack stores all passengers that have exited the elvevator 
 			vector <Elevator> Elevators = My_Building.get_ElevatorVec();
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
-				cout << "COUNT: " << count << "\n";
-				//srand(time(NULL));
-
+				cout << "\n--------------------- COUNT:" << count << " --------------------------- \n"; 
 				int new_arrivals;
-				if (num_arrived >= p_num) { //if the #arrived passengers >= #passengers that we wanted total
+
+				//ALL PASSENGERS SIMULATED:
+				if (num_arrived >= p_num) //if the arrived passengers >= total passengers wanted
 					new_arrivals = 0;
-				}
-				else //if we still need new passengers to arrive
-					new_arrivals = rand() % (p_num - num_arrived) + 1; //random # from 0 to (total passengers-#already arrived) 
 
+				//STILL NEED PASSENGERS:
+				else 
+					new_arrivals = rand() % (p_num - num_arrived) + 1; //random # from 0 to (total passengers-already arrived) 
 
-				num_arrived += new_arrivals; //increment #passengers already arrived
-				cout << "new arrivals " << new_arrivals << endl;
+				//UPDATE NUM_ARRIVED AND NEW ARRIVALS:
+				num_arrived += new_arrivals; //increment passengers arrived
+				cout << "New Arrivals: " << new_arrivals << endl;
 
-
+				//CREATE NEWLY ARRIVED PASSENGERS:
 				for (int i = 0; i < new_arrivals; i++) {
-					Passenger the_passenger(count, IDNum_Count, f_num); //Create a passenger pass the current count & assign IDNumber
-					IDNum_Count++; //Increment IDNum_Counter to give each passenger a unique ID (based on priority, who got here first)
+					Passenger the_passenger(count, IDNum_Count, f_num); //pass the current count & assign IDNumber
+					IDNum_Count++; //increment IDNum_Counter to give each passenger a unique ID (based on priority/ who got here first)
 
-					My_Building.add_Passenger(the_passenger);
-					cout << "Pass "<<the_passenger.getIDNum()<<" is at floor " << the_passenger.getCurrentFloor()<<" & going to " <<the_passenger.getDestination()<< endl;
+					My_Building.add_Passenger(the_passenger);//add passenger to Building's queue of passengers depending on floor
+					cout << "Passenger " << the_passenger.getIDNum() << ": Current Floor [" << the_passenger.getCurrentFloor() << "], Destination: [" << the_passenger.getDestination() << "]\n";
 				}
-
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
 				My_Building.Decide();
 
 				//Once elevator has moved, unload the passengers & count how many got off
 				num_exited += My_Building.unloading_passengers(count, Exitors);
 
-
-				
-
-				
 				count++;
 			}
 
@@ -87,45 +83,43 @@ void main() {
 
 void PrintResults(int pass_num, stack <Passenger> Pass_Stack)
 {
-	cout << "Total Passengers:" << pass_num << endl;
+	cout << "\nCONCLUSION:                            Total Passengers: " << pass_num << endl; 
 	double sum = 0;
-	
-	for (int i = 0; i < pass_num; i++) {	//Ittereate through Passenger stack, sum up the wait times
-	Passenger current = Pass_Stack.top();
-	sum += current.getWaitTime();
-	Pass_Stack.pop();
+	//ITERATE THROUGH PASSENGER STACK, SUM WAIT TIMES:
+	for (int i = 0; i < pass_num; i++) {
+		Passenger current = Pass_Stack.top();
+		sum += current.getWaitTime();
+		Pass_Stack.pop();
 	}
-	
 
-	cout << "Average Wait time:" << sum / pass_num << endl;
+	//OUTPUT AVERAGE:
+	cout << "                                    Average Wait Time: " << sum / pass_num << "\n__________________________________________________________";
 	cout << endl << endl;
 }
-
-void getInput(int &e_num, int &f_num, int &p_num) //#Elevator, #Floors, #passengers
+                                                        
+void getInput(int &e_num, int &f_num, int &p_num) //input elevators, floors, and passengers
 {
-
-	
-	cout << "Begin Elevator Simulation" << endl;
-
-	cout << "Please enter the number of elevators you want to see simulated(1 to 10):" << endl;
+	cout << "_________________________________________________________\n\nTo begin the Elevator Simulation:" << endl;
+	//INPUT ELEVATORS:
+	cout << "Please enter the number of elevators you want simulated (1 to 10): ";
 	cin >> e_num;
-	while (e_num <= 0 || e_num > 10) {
-		cout << "You must enter a number between 1 and 10\n";
+	while (e_num <= 0 || e_num > 10) { //must be in between 1-10
+		cout << "You must enter a number between 1 and 10.\n";
 		cin >> e_num;
 	}
-	cout << "Please enter the number of floors in the building" << endl;
+	//INPUT FLOORS:
+	cout << "Please enter the number of floors you want in the building: ";
 	cin >> f_num;
-
 	while (f_num <= 1) { //must have more than 1 floor
-		cout << "You must have at least 2 floors\n";
+		cout << "You must have at least 2 floors.\n";
 		cin >> f_num;
 	}
-
-
-	cout << "Please enter the number of passenger" << endl;
+	//INPUT PASSENGERS:
+	cout << "Please enter the number of passengers you want to show up: ";
 	cin >> p_num;
 	while (p_num <= 0) {
-		cout << "You must have at least 1 passenger\n";
+		cout << "You must have at least 1 passenger.\n";
 		cin >> p_num;
 	}
+	cout << "\nProcessing simulation... \n\n";
 }
