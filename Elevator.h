@@ -14,11 +14,9 @@ public:
 	int elevator_number;			// Consider use as elevator ID.
 	bool idel;						//Elevator ID to keep track of which elevator is being acted on.
 
-
 									//--------------Constructor--------------------
 	Elevator(); //Default Constructor
 	Elevator(int ID);
-
 
 	//-------------Getters / Setters------------------------
 
@@ -37,5 +35,4 @@ public:
 	bool still_exiting();
 	Passenger exit();
 	void load(Passenger passe);
-
 };
