@@ -89,6 +89,9 @@ void Building::add_Passenger(Passenger the_passenger)
 //based on their current floor and destination floor(which floor is closer to the current floor that evevator is on))
 //So we can get two priority dequeues
 //where we store passenger info?//like what we did in floor_vec?
+//deque is a double ended_queue.can be accessed by random aacess iterator
+//plus,it has more functions we can use.Ex,for queue we use pop();but for deque we can use pop_front() and pop_back();
+//for queue we use push(),for deque we can use push_front() and push_back
 
 void Building::Decide()
 {
