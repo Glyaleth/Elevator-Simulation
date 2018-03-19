@@ -91,7 +91,7 @@ void Building::add_Passenger(Passenger the_passenger)
 //where we store passenger info?//like what we did in floor_vec?
 //deque is a double ended_queue.can be accessed by random aacess iterator
 //plus,it has more functions we can use.Ex,for queue we use pop();but for deque we can use pop_front() and pop_back();
-//for queue we use push(),for deque we can use push_front() and push_back
+//for queue we use push(),for deque we can use push_front() and push_back;.assign(beg,end);.assign(n,elem);erase(beg,end);insert();resize();swap();
 
 void Building::Decide()
 {
