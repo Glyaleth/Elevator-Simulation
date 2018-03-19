@@ -5,20 +5,24 @@ using namespace std;
 
 Elevator::Elevator()
 {
-	elevator_number = 0;
+	elevator_number = -1;
 	current_floor = 0;
 	vector <Passenger> elev_passengers;
-	elev_passengers.resize(10);
+	//elev_passengers.resize(10);
 	idel = true;
 }
 
 Elevator::Elevator(int ID)
 {
-	//Constructor
+	//Constructor accepts elevator ID, 
+
 	elevator_number = ID;
-	current_floor = 1;
+	current_floor = 0;
 	vector <Passenger> elev_passengers;
+	//elev_passengers.resize(10);
 	idel = true;
+
+
 }
 
 int Elevator::getCurrentFloor()
@@ -41,7 +45,7 @@ vector<Passenger> Elevator::getElevPass()
 	return elev_passengers;
 }
 
-bool Elevator::getIdel()
+bool Elevator::getIdle()
 {
 	if (elev_passengers.empty() == false) {
 		idel = false;
@@ -55,7 +59,16 @@ bool Elevator::getIdel()
 
 void Elevator::setCurrentFloor(int f)
 {
-	current_floor = f;
+	int IDNum = this->elevator_number;
+		if (f == -1) { //if floor didn't change, because no new requests 
+			cout << "Elevator " << IDNum << " went nowhere\n";
+		}
+
+		else { //move elevator and load passengers
+			cout << "Elevator " << IDNum << " went from floor [" << current_floor;
+			current_floor = f;
+			cout << "] to [" << current_floor << "]\n";
+		}
 
 }
 
@@ -101,5 +114,8 @@ Passenger Elevator::exit()
 
 void Elevator::load(Passenger passe)
 {
+	passe.setOnElevator(true);
 	elev_passengers.push_back(passe);
 }
+
+
