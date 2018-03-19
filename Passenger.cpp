@@ -4,19 +4,24 @@
 #include "Passenger.h"
 using namespace std;
 
+
+
 Passenger::Passenger(int arrive, int ID, int numFloor)
 {
 	ArrivalTime = arrive;
-	CurrentFloor = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
+	OnElevator = false;
+	CurrentFloor = 0 + (rand() % numFloor); //random number from 0 to n floors
 
-	Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
-												 
-	while (Destination == CurrentFloor) {
-		//if they are already on the floor they want to go to, have them pick another floor
-		Destination = 1 + (rand() % (numFloor - 1)); //random number from 1-number of floors 
+	Destination = 0 + (rand() % numFloor); //random number from 0 to n floors 
+
+	if (numFloor != -1) {
+		while (Destination == CurrentFloor) { //pick another floor
+			Destination = 0 + (rand() % numFloor); //random number from 0 to n floors 
+		}
 	}
-
+	
 	IDNum = ID;
+
 }
 
 int Passenger::getArrivalTime()
@@ -34,9 +39,8 @@ int Passenger::getDestination()
 	return Destination;
 }
 
-int Passenger::getExitTime(int ET)
+int Passenger::getExitTime()
 {
-	ExitTime = ET;
 	return ExitTime;
 }
 
@@ -53,10 +57,26 @@ int Passenger::getIDNum()
 
 int Passenger::getDirection()
 {
-	if (CurrentFloor > Destination) //if going up
+	if (CurrentFloor < Destination) { //if going up
+		Direction = 1;
 		return 1;
-	else if (CurrentFloor < Destination) //if going down
+	}
+	else if (CurrentFloor > Destination) { //if going down
+		Direction = 0;
 		return 0;
+	}
+}
+
+bool Passenger::getOnElevator()
+{
+	return OnElevator;
+}
+
+
+
+void Passenger::setOnElevator(bool a)
+{
+	OnElevator = a;
 }
 
 void Passenger::setArrivalTime(int AT)
