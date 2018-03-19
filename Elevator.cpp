@@ -106,7 +106,7 @@ Passenger Elevator::exit()
 		if (elev_passengers[i].getDestination() == current_floor) {
 			Passenger pass = elev_passengers[i];
 			elev_passengers.erase(elev_passengers.begin() + i);
-			cout << "EXITING: Passenger " << pass.getIDNum() << " on floor [" << current_floor << "]\n";
+			//cout << "EXITING: Passenger " << pass.getIDNum() << " on floor [" << current_floor << "]\n";
 			return pass;
 		}
 	}
