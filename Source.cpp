@@ -11,6 +11,8 @@ using namespace std;
 
 void PrintResults(int pass_num, stack <Passenger> Pass_Stack);
 void getInput(int &e_num, int &f_num, int &p_num);
+int CalcArrivals(int arrived_num, int p_num);
+void PrintPassengers(vector<queue<Passenger>> the_floors);
 
 void main() {
 	bool again = true;
@@ -38,16 +40,9 @@ void main() {
 			vector <Elevator> Elevators = My_Building.get_ElevatorVec();
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
-				cout << "\n--------------------- COUNT:" << count << " --------------------------- \n"; 
-				int new_arrivals;
-
-				//ALL PASSENGERS SIMULATED:
-				if (num_arrived >= p_num) //if the arrived passengers >= total passengers wanted
-					new_arrivals = 0;
-
-				//STILL NEED PASSENGERS:
-				else 
-					new_arrivals = rand() % (p_num - num_arrived) + 1; //random # from 0 to (total passengers-already arrived) 
+				cout << "\n--------------------- COUNT:" << count << " --------------------------- \n";
+				
+				int new_arrivals = CalcArrivals(num_arrived, p_num);
 
 				//UPDATE NUM_ARRIVED AND NEW ARRIVALS:
 				num_arrived += new_arrivals; //increment passengers arrived
@@ -57,10 +52,17 @@ void main() {
 				for (int i = 0; i < new_arrivals; i++) {
 					Passenger the_passenger(count, IDNum_Count, f_num); //pass the current count & assign IDNumber
 					IDNum_Count++; //increment IDNum_Counter to give each passenger a unique ID (based on priority/ who got here first)
+					//cout << "Passenger " << the_passenger.getIDNum() << ": Current Floor [" << the_passenger.getCurrentFloor() << "], Destination: [" << the_passenger.getDestination() << "]\n";
 
 					My_Building.add_Passenger(the_passenger);//add passenger to Building's queue of passengers depending on floor
-					cout << "Passenger " << the_passenger.getIDNum() << ": Current Floor [" << the_passenger.getCurrentFloor() << "], Destination: [" << the_passenger.getDestination() << "]\n";
 				}
+
+				
+				//Print off each person on each floor to keep track of who is still waiting
+				vector<queue<Passenger>> the_floors = My_Building.get_FloorVec();
+				//PrintPassengers(the_floors);
+				
+
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
 				My_Building.Decide();
 
@@ -83,7 +85,7 @@ void main() {
 
 void PrintResults(int pass_num, stack <Passenger> Pass_Stack)
 {
-	cout << "\nCONCLUSION:                            Total Passengers: " << pass_num << endl; 
+	cout << "\nCONCLUSION:                            Total Passengers: " << pass_num << endl;
 	double sum = 0;
 	//ITERATE THROUGH PASSENGER STACK, SUM WAIT TIMES:
 	for (int i = 0; i < pass_num; i++) {
@@ -96,7 +98,7 @@ void PrintResults(int pass_num, stack <Passenger> Pass_Stack)
 	cout << "                                    Average Wait Time: " << sum / pass_num << "\n__________________________________________________________";
 	cout << endl << endl;
 }
-                                                        
+
 void getInput(int &e_num, int &f_num, int &p_num) //input elevators, floors, and passengers
 {
 	cout << "_________________________________________________________\n\nTo begin the Elevator Simulation:" << endl;
@@ -123,3 +125,30 @@ void getInput(int &e_num, int &f_num, int &p_num) //input elevators, floors, and
 	}
 	cout << "\nProcessing simulation... \n\n";
 }
+
+int CalcArrivals(int arrived_num, int p_num)
+{
+	int new_arrivals;
+	//ALL PASSENGERS SIMULATED:
+	if (arrived_num >= p_num) //if the arrived passengers >= total passengers wanted
+		new_arrivals = 0;
+
+	//STILL NEED PASSENGERS:
+	else
+		new_arrivals = rand() % (p_num - arrived_num) + 1; //random # from 0 to (total passengers-already arrived) 
+	return new_arrivals; 
+}
+
+void PrintPassengers(vector<queue<Passenger>> the_floors)
+{
+	//Print out list of passengers still waiting to get on elevator
+	for (int k = 0; k < the_floors.size(); k++) {
+		while (the_floors[k].empty() == false) {//if there is someone there
+			cout << "Passenger " << the_floors[k].front().getIDNum() << ": Current Floor [" << the_floors[k].front().getCurrentFloor() << "], Destination: [" << the_floors[k].front().getDestination() << "]\n";
+			the_floors[k].pop();
+		}
+	}
+
+}
+
+
