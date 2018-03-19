@@ -165,7 +165,8 @@ void Building::Decide()
 		}
 
 		Elevator_vec[i].setCurrentFloor(d_floor);
-		this->loading_passengers(i, d_floor);
+		if (d_floor!=-1)
+			this->loading_passengers(i, d_floor);
 
 
 
