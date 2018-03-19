@@ -103,12 +103,12 @@ void getInput(int &e_num, int &f_num, int &p_num) //input elevators, floors, and
 {
 	cout << "_________________________________________________________\n\nTo begin the Elevator Simulation:" << endl;
 	//INPUT ELEVATORS:
-	cout << "Please enter the number of elevators you want simulated (1 to 10): ";
+	cout << "Please enter the number of elevators you want: ";
 	cin >> e_num;
-	while (e_num <= 0 || e_num > 10) { //must be in between 1-10
-		cout << "You must enter a number between 1 and 10.\n";
-		cin >> e_num;
-	}
+	//while (e_num <= 0 || e_num > 10) { //must be in between 1-10
+		//cout << "You must enter a number between 1 and 10.\n";
+		//cin >> e_num;
+	//}
 	//INPUT FLOORS:
 	cout << "Please enter the number of floors you want in the building: ";
 	cin >> f_num;
