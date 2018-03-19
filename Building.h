@@ -26,6 +26,7 @@ public:
 	void set_passengers(int p);
 	void set_elevators(int e);
 	void set_floors(int f);
+	vector<queue<Passenger>> get_FloorVec();
 
 	int current_pass_in_ele();
 	void passenger_entry(int i);
@@ -34,5 +35,6 @@ public:
 	void add_Passenger(Passenger the_passenger);
 	void Decide();
 	void loading_passengers(int elev, int floor);
-	int unloading_passengers(int c, stack <Passenger> &Exitors);
+	int unloading_passengers(int count, stack <Passenger> &Exitors);
 };
+
