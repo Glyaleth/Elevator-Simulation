@@ -81,7 +81,6 @@ void Building::passenger_exit(int n)
 void Building::add_Passenger(Passenger the_passenger)
 {
 	Floor_vec[the_passenger.getCurrentFloor()].push(the_passenger);
-
 }
 
 //use double-ended priority queue?-->dequeue
@@ -93,11 +92,6 @@ void Building::add_Passenger(Passenger the_passenger)
 
 void Building::Decide()
 {
-
-
-
-
-
 	for (int i = 0; i < Elevator_vec.size(); i++) { //For each elevator in the building
 		int d_floor = -1;
 		int c_floor = Elevator_vec[i].getCurrentFloor(); //get current floor of elevator
@@ -107,7 +101,6 @@ void Building::Decide()
 			d_floor = c_floor;
 
 		else { //else move to another floor
-
 
 			//IF ELEVATOR NOT CURRENTLY IN USE/IDEL
 			if (current.getIdle() == false) {
@@ -128,8 +121,7 @@ void Building::Decide()
 						else if (Floor_vec[cf].front().getDirection() == 1) { //if the first person at that floor is also going up
 							d_floor = Floor_vec[cf].front().getCurrentFloor();
 							break;
-						}
-						
+						}	
 					}
 				}
 
@@ -152,7 +144,6 @@ void Building::Decide()
 				}
 			}
 
-
 			//ELEVATOR NOT IN USE: 
 			else if (current.getIdle() == true) {
 				for (int k = 0; k < Floor_vec.size(); k++) {
@@ -165,17 +156,13 @@ void Building::Decide()
 		}
 
 		Elevator_vec[i].setCurrentFloor(d_floor);
-		if (d_floor!=-1)
+		if (d_floor!=-1)	//If the destination floor has updated, load the passenger
 			this->loading_passengers(i, d_floor);
-
-
-
 	}
 }
 
 void Building::loading_passengers(int elev, int floor) //looks at all the elevators in the building, it's current floor and if it needs to load any passengers
 {
-
 	Passenger p;
 	while (Floor_vec[floor].size()>0) {  //while the current floor's queue is not empty
 		p = Floor_vec[floor].front(); //save the passenger at the front of the queue
@@ -184,7 +171,6 @@ void Building::loading_passengers(int elev, int floor) //looks at all the elevat
 		Floor_vec[floor].pop(); //remove from the queue
 		cout << "LOADING: Passenger " << p.getIDNum() << " on floor [" << floor << "]\n";
 	}
-
 }
 
 int Building::unloading_passengers(int count, stack<Passenger>& Exitors)
@@ -199,6 +185,4 @@ int Building::unloading_passengers(int count, stack<Passenger>& Exitors)
 		}
 	}
 	return num_exited;
-
-
 }
