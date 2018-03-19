@@ -60,7 +60,7 @@ void main() {
 				
 				//Print off each person on each floor to keep track of who is still waiting
 				vector<queue<Passenger>> the_floors = My_Building.get_FloorVec();
-				//PrintPassengers(the_floors);
+				PrintPassengers(the_floors);
 				
 
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
