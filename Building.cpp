@@ -107,14 +107,14 @@ void Building::Decide()
 
 			//IF ELEVATOR NOT CURRENTLY IN USE/IDEL
 			if (current.getIdle() == false) {
-				d_floor = current.elev_passengers.front().getDestination();
+				d_floor = current.getElevPass().front().getDestination();
 
 				//GOING UP: 
 				if (d_floor > c_floor) {
-					for (int p = 0; p < current.elev_passengers.size(); p++) { //for every passenger in the elevator
+					for (int p = 0; p < current.getElevPass().size(); p++) { //for every passenger in the elevator
 						//if someone's destination is between current and destination floor --> go there first
-						if ((current.elev_passengers[p].getDestination() > c_floor) && (current.elev_passengers[p].getDestination() < d_floor))
-							d_floor = current.elev_passengers[p].getDestination();
+						if ((current.getElevPass()[p].getDestination() > c_floor) && (current.getElevPass()[p].getDestination() < d_floor))
+							d_floor = current.getElevPass()[p].getDestination();
 					}
 
 					int cf = current.getCurrentFloor()+1; //temp variable for current floor
@@ -130,10 +130,10 @@ void Building::Decide()
 
 				//GOING DOWN:
 				else if (d_floor < c_floor) {
-					for (int p = 0; p < current.elev_passengers.size(); p++) { //for each passenger on the way to d_floor
+					for (int p = 0; p < current.getElevPass().size(); p++) { //for each passenger on the way to d_floor
 						//if someone's destination is between current and destination floor --> go there first
-						if ((current.elev_passengers[p].getDestination() < c_floor) && (current.elev_passengers[p].getDestination() > d_floor))
-							d_floor = current.elev_passengers[p].getDestination();
+						if ((current.getElevPass()[p].getDestination() < c_floor) && (current.getElevPass()[p].getDestination() > d_floor))
+							d_floor = current.getElevPass()[p].getDestination();
 					}
 					int cf = current.getCurrentFloor()-1; //temp variable for current floor
 					for (cf; cf > d_floor; cf--) { //for each floor on the way to d_floor

@@ -6,8 +6,7 @@ using namespace std;
 
 //Elevator class object
 class Elevator {
-public:
-//private:
+private:
 	vector <Passenger> elev_passengers; // Vector of passengers entering the elevator.
 	int current_floor;				// Current floor of elevator in relation to 
 	bool emergency_button = false;	// Emergency button, should stop the entire running program if pressed. (Currently unused)
@@ -15,7 +14,7 @@ public:
 	bool idel;						//Elevator ID to keep track of which elevator is being acted on.
 
 
-//public:
+public:
 	//--------------Constructor--------------------
 	Elevator(); //Default Constructor
 	Elevator(int ID);
