@@ -1,3 +1,8 @@
+//Saally Campos 
+//Chale Abad
+//Thomas Diggs
+//Mao Zheng
+
 #pragma once
 class Passenger {
 private:
