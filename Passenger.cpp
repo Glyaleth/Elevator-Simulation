@@ -4,8 +4,6 @@
 #include "Passenger.h"
 using namespace std;
 
-
-
 Passenger::Passenger(int arrive, int ID, int numFloor)
 {
 	ArrivalTime = arrive;
@@ -19,9 +17,7 @@ Passenger::Passenger(int arrive, int ID, int numFloor)
 			Destination = 0 + (rand() % numFloor); //random number from 0 to n floors 
 		}
 	}
-	
 	IDNum = ID;
-
 }
 
 int Passenger::getArrivalTime()

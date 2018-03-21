@@ -4,38 +4,25 @@
 #include <vector>
 using namespace std;
 
-//Elevator class object
 class Elevator {
-private:
-	vector <Passenger> elev_passengers; // Vector of passengers entering the elevator.
-	int current_floor;				// Current floor of elevator in relation to 
-	bool emergency_button = false;	// Emergency button, should stop the entire running program if pressed. (Currently unused)
-	int elevator_number;			// Consider use as elevator ID.
-	bool idel;						//Elevator ID to keep track of which elevator is being acted on.
-
-
 public:
-	//--------------Constructor--------------------
+	vector <Passenger> elev_passengers; // vector of passengers in the elevator
+	int current_floor;		// Current floor of elevator 
+	int elevator_number;	// elevator ID
+	bool idle;			//Elevator ID to keep track of which elevator is being acted on
+
 	Elevator(); //Default Constructor
-	Elevator(int ID);
-
-
-	//-------------Getters / Setters------------------------
-
-	int getCurrentFloor();
-	bool getEmergency_Button();
-	int getElevatorNumber();
+	Elevator(int ID); //creates elevator according to given I
+	Elevator(int ID); //creates elevator according to given ID
 	vector <Passenger> getElevPass();
+	int getCurrentFloor();
+	int getElevatorNumber();
 	bool getIdle();
 	void setCurrentFloor(int f);
-	void setEmergency_Button(bool e);
 	void setElevatorNumber(int n);
-	void setIdel(bool i);
+	void setIdle(bool i);
 
-	//-------------Functions------------------------
-
-	bool still_exiting();
-	Passenger exit();
-	void load(Passenger passe);
-
+	bool still_exiting(); //checks if a passenger is still leaving elevator
+	Passenger exit(); //takes out passenger and is used within unloading_passenger of Building.cpp to add to Exitor stack 
+	void load(Passenger passe); //loads a passenger into the elevator 
 };

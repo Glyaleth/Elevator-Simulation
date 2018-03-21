@@ -10,31 +10,20 @@ using namespace std;
 class Building
 {
 private:
-	int entry_passengers;
-	int exit_passengers;
-	int elevators, floors, passengers;
-	vector<Elevator> Elevator_vec;
-	vector<queue<Passenger>> Floor_vec;
+	int elevators, floors;
+	vector<Elevator> Elevator_vec; //vector to hold all elevators in the building
+	vector<queue<Passenger>> Floor_vec; //vector to hold all floors, each floor has a queue of passengers
 
 public:
-	Building(int e_num, int f_num); //default constructor
-
-	int get_passengers();
+	Building(int e_num, int f_num); //constructor
 	int get_elevators();
 	int get_floors();
+	int unloading_passengers(int count, stack <Passenger> &Exitors); //takes in counter at main and the stack of passengers that have editer 
 	vector <Elevator> get_ElevatorVec();
-	void set_passengers(int p);
+	vector<queue<Passenger>> get_FloorVec();
 	void set_elevators(int e);
 	void set_floors(int f);
-	vector<queue<Passenger>> get_FloorVec();
-
-	int current_pass_in_ele();
-	void passenger_entry(int i);
-	void passenger_exit(int n);
-
-	void add_Passenger(Passenger the_passenger);
-	void Decide();
-	void loading_passengers(int elev, int floor);
-	int unloading_passengers(int count, stack <Passenger> &Exitors);
+	void add_Passenger(Passenger the_passenger); //adds passenger to Floor_vec with queue of passengers according to passenger's floor 
+	void Decide();//decides where each elevator needs to go according to the count
+	void loading_passengers(int elev, int floor); //takes in elevator number and floor, loads accordingly
 };
-

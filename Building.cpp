@@ -22,11 +22,6 @@ Building::Building(int e_num, int f_num)
 	}
 }
 
-int Building::get_passengers()
-{
-	return passengers;
-}
-
 int Building::get_elevators()
 {
 	return elevators;
@@ -40,12 +35,6 @@ int Building::get_floors()
 vector<Elevator> Building::get_ElevatorVec()
 {
 	return Elevator_vec;
-}
-
-
-void Building::set_passengers(int p)
-{
-	passengers = p;
 }
 
 void Building::set_elevators(int e)
@@ -63,40 +52,15 @@ vector<queue<Passenger>> Building::get_FloorVec()
 	return Floor_vec;
 }
 
-int Building::current_pass_in_ele()
-{
-	return entry_passengers - exit_passengers;
-}
-
-void Building::passenger_entry(int i)
-{
-	entry_passengers += i;
-}
-
-void Building::passenger_exit(int n)
-{
-	exit_passengers += n;
-}
-
 void Building::add_Passenger(Passenger the_passenger)
 {
 	Floor_vec[the_passenger.getCurrentFloor()].push(the_passenger);
 }
 
-//use double-ended priority queue?-->dequeue
-//when we randomly give the passenger a destination &current floor,we store the same passenger in two dequeues(one to decide 
-//when to pick them up,one decides when to unload them) and the order we store the passenger in the dequeue will be 
-//based on their current floor and destination floor(which floor is closer to the current floor that evevator is on))
-//So we can get two priority dequeues
-//where we store passenger info?//like what we did in floor_vec?
-//deque is a double ended_queue.can be accessed by random aacess iterator
-//plus,it has more functions we can use.Ex,for queue we use pop();but for deque we can use pop_front() and pop_back();
-//for queue we use push(),for deque we can use push_front() and push_back;.assign(beg,end);.assign(n,elem);erase(beg,end);insert();resize();swap();
-
 void Building::Decide()
 {
 	for (int i = 0; i < Elevator_vec.size(); i++) { //For each elevator in the building
-		int d_floor = -1;
+		int d_floor = -1; //destination floor 
 		int c_floor = Elevator_vec[i].getCurrentFloor(); //get current floor of elevator
 		Elevator current = Elevator_vec[i]; //Save current elevator in temp variable
 
@@ -105,38 +69,38 @@ void Building::Decide()
 
 		else { //else move to another floor
 
-			//IF ELEVATOR NOT CURRENTLY IN USE/IDEL
+			   //IF ELEVATOR NOT CURRENTLY IN USE/IDLE
 			if (current.getIdle() == false) {
 				d_floor = current.getElevPass().front().getDestination();
 
 				//GOING UP: 
 				if (d_floor > c_floor) {
-					for (int p = 0; p < current.getElevPass().size(); p++) { //for every passenger in the elevator
-						//if someone's destination is between current and destination floor --> go there first
+					for (int p = 0; p < current.getElevPass().size(); p++) { //for every PASSENGER in the elevator
+						// if someone's destination is between current and destination floor --> go there first													 
 						if ((current.getElevPass()[p].getDestination() > c_floor) && (current.getElevPass()[p].getDestination() < d_floor))
 							d_floor = current.getElevPass()[p].getDestination();
 					}
 
-					int cf = current.getCurrentFloor()+1; //temp variable for current floor
-					for (cf; cf < d_floor; cf++) { //for each floor on the way to d_floor
+					int cf = current.getCurrentFloor() + 1; //temp variable for current floor
+					for (cf; cf < d_floor; cf++) { //for each FLOOR on the way to d_floor
 						if (Floor_vec[cf].empty()) //if floor is empty, do nothing
 							continue;
 						else if (Floor_vec[cf].front().getDirection() == 1) { //if the first person at that floor is also going up
 							d_floor = Floor_vec[cf].front().getCurrentFloor();
 							break;
-						}	
+						}
 					}
 				}
 
 				//GOING DOWN:
 				else if (d_floor < c_floor) {
-					for (int p = 0; p < current.getElevPass().size(); p++) { //for each passenger on the way to d_floor
+					for (int p = 0; p < current.getElevPass().size(); p++) { //for each PASSENGER on the way to d_floor
 						//if someone's destination is between current and destination floor --> go there first
 						if ((current.getElevPass()[p].getDestination() < c_floor) && (current.getElevPass()[p].getDestination() > d_floor))
 							d_floor = current.getElevPass()[p].getDestination();
 					}
-					int cf = current.getCurrentFloor()-1; //temp variable for current floor
-					for (cf; cf > d_floor; cf--) { //for each floor on the way to d_floor
+					int cf = current.getCurrentFloor() - 1; //temp variable for current floor
+					for (cf; cf > d_floor; cf--) { //for each FLOOR on the way to d_floor
 						if (Floor_vec[cf].empty()) //if floor is empty, do nothing
 							continue;
 						else if (Floor_vec[cf].front().getDirection() == 0) { //if the first person at that floor is also going down
@@ -159,12 +123,12 @@ void Building::Decide()
 		}
 
 		Elevator_vec[i].setCurrentFloor(d_floor);
-		if (d_floor!=-1)	//If the destination floor has updated, load the passenger
+		if (d_floor != -1)	//if the destination floor has updated, load the passenger
 			this->loading_passengers(i, d_floor);
 	}
 }
 
-void Building::loading_passengers(int elev, int floor) //looks at all the elevators in the building, it's current floor and if it needs to load any passengers
+void Building::loading_passengers(int elev, int floor) 
 {
 	Passenger p;
 	while (Floor_vec[floor].size()>0) {  //while the current floor's queue is not empty

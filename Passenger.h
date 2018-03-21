@@ -15,13 +15,11 @@ public:
 	int getDirection();
 	bool getOnElevator();
 
-	void setOnElevator(bool a);
+	void setOnElevator(bool a); //used in Elevator class to make sure it got on elevator
 	void setArrivalTime(int AT);
 	void setExitTime(int ET);
 	void setCurrentFloor(int CF);
 	void setDestination(int Destin);
 	void setDirection(int D);
 	void setIDNum(int ID);
-
-
 };
