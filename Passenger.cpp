@@ -1,4 +1,4 @@
-//Saally Campos 
+// Saally Campos
 //Chale Abad
 //Thomas Diggs
 //Mao Zheng
@@ -62,7 +62,7 @@ int Passenger::getDirection()
 		Direction = 1;
 		return 1;
 	}
-	else if (CurrentFloor > Destination) { //if going down
+	else  { //if going down
 		Direction = 0;
 		return 0;
 	}

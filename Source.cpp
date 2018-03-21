@@ -35,14 +35,13 @@ void main() {
 
 			getInput(e_num, f_num, p_num); //gather input
 
-			Building My_Building(e_num, f_num); //pass #elevators and #floors
+			Building My_Building(e_num, f_num); //Create our building pass in #elevators and #floors
 
-			int count = 0; //counter to calculate what tick we are at
-			int num_arrived = 0; //counts the number of passengers already arrived
+			int count = 0; //counter to calculate what tick we are at- for wait time calculations
+			int num_arrived = 0; //counts the number of passengers already arrived- to ensure when to stop creating new passengers
 			int IDNum_Count = 0; //counter to keep track of what ID numbers are already used
-			int num_exited = 0; //counter of passengers who have exited the elevator
+			int num_exited = 0; //counter of passengers who have exited the elevator- to check if we have dealt with all passengers 
 			stack <Passenger> Exitors; //stack stores all passengers that have exited the elvevator 
-			vector <Elevator> Elevators = My_Building.get_ElevatorVec();
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
 				cout << "\n--------------------- COUNT:" << count << " --------------------------- \n";
@@ -57,25 +56,23 @@ void main() {
 				for (int i = 0; i < new_arrivals; i++) {
 					Passenger the_passenger(count, IDNum_Count, f_num); //pass the current count & assign IDNumber
 					IDNum_Count++; //increment IDNum_Counter to give each passenger a unique ID (based on priority/ who got here first)
-								   //cout << "Passenger " << the_passenger.getIDNum() << ": Current Floor [" << the_passenger.getCurrentFloor() << "], Destination: [" << the_passenger.getDestination() << "]\n";
-
 					My_Building.add_Passenger(the_passenger);//add passenger to Building's queue of passengers depending on floor
 				}
 
-				//Print off each person on each floor to keep track of who is still waiting
-				vector<queue<Passenger>> the_floors = My_Building.get_FloorVec();
-				PrintPassengers(the_floors);
+				vector<queue<Passenger>> the_floors = My_Building.get_FloorVec(); 
+				PrintPassengers(the_floors); //Print off passengers on each floor to keep track of who is still waiting
 
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
-				My_Building.Decide();
+				num_exited += My_Building.Decide(count, Exitors);
 
 				//Once elevator has moved, unload the passengers & count how many got off
-				num_exited += My_Building.unloading_passengers(count, Exitors);
+				//num_exited += My_Building.unloading_passengers(count, Exitors);
 
-				count++;
+				count++; 
 			}
+
 			//After all passengers have exited the elevator, simulation is over, print the results
-			PrintResults(p_num, Exitors);
+			PrintResults(p_num, Exitors); //Pass in number passengers and the stack of all the passengers that were dealt with
 		}
 		else if (choice == 2) { //if user wants to exit simulation
 			return;
@@ -131,16 +128,17 @@ int CalcArrivals(int arrived_num, int p_num)
 	//STILL NEED PASSENGERS:
 	else
 		new_arrivals = rand() % (p_num - arrived_num) + 1; //random # from 0 to (total passengers-already arrived) 
+	
 	return new_arrivals;
 }
 
 void PrintPassengers(vector<queue<Passenger>> the_floors)
 {
 	//Print out list of passengers still waiting to get on elevator
-	for (int k = 0; k < the_floors.size(); k++) {
+	for (int k = 0; k < the_floors.size(); k++) { //for each of the floors
 		while (the_floors[k].empty() == false) {//if there is someone there
 			cout << "Passenger " << the_floors[k].front().getIDNum() << ": Current Floor [" << the_floors[k].front().getCurrentFloor() << "], Destination: [" << the_floors[k].front().getDestination() << "]\n";
-			the_floors[k].pop();
+			the_floors[k].pop(); //Print out passenger then remove them from the queue 
 		}
 	}
 }

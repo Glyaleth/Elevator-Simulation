@@ -17,7 +17,6 @@ public:
 	bool idle;			//Elevator ID to keep track of which elevator is being acted on
 
 	Elevator(); //Default Constructor
-	Elevator(int ID); //creates elevator according to given I
 	Elevator(int ID); //creates elevator according to given ID
 	vector <Passenger> getElevPass();
 	int getCurrentFloor();
@@ -28,6 +27,6 @@ public:
 	void setIdle(bool i);
 
 	bool still_exiting(); //checks if a passenger is still leaving elevator
-	Passenger exit(); //takes out passenger and is used within unloading_passenger of Building.cpp to add to Exitor stack 
+	Passenger exit(int cf); //takes out passenger and is used within unloading_passenger of Building.cpp to add to Exitor stack 
 	void load(Passenger passe); //loads a passenger into the elevator 
 };

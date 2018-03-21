@@ -24,12 +24,11 @@ public:
 	Building(int e_num, int f_num); //constructor
 	int get_elevators();
 	int get_floors();
-	int unloading_passengers(int count, stack <Passenger> &Exitors); //takes in counter at main and the stack of passengers that have editer 
 	vector <Elevator> get_ElevatorVec();
 	vector<queue<Passenger>> get_FloorVec();
 	void set_elevators(int e);
 	void set_floors(int f);
 	void add_Passenger(Passenger the_passenger); //adds passenger to Floor_vec with queue of passengers according to passenger's floor 
-	void Decide();//decides where each elevator needs to go according to the count
+	int Decide(int count, stack<Passenger>& Exitors);//decides where each elevator needs to go according to the count
 	void loading_passengers(int elev, int floor); //takes in elevator number and floor, loads accordingly
 };
