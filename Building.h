@@ -1,3 +1,9 @@
+//Saally Campos 
+//Chale Abad
+//Thomas Diggs
+//Mao Zheng
+
+
 #pragma once
 #include <iostream>
 #include "Elevator.h"
