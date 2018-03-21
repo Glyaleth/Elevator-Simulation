@@ -9,26 +9,26 @@
 #include "Elevator.h"
 using namespace std;
 
-void PrintResults(int pass_num, stack <Passenger> Pass_Stack);
-void getInput(int &e_num, int &f_num, int &p_num);
-int CalcArrivals(int arrived_num, int p_num);
-void PrintPassengers(vector<queue<Passenger>> the_floors);
+void PrintResults(int pass_num, stack <Passenger> Pass_Stack); //takes in number of passengers, stack of passengers, sums it up and prints avg. waiting time
+void getInput(int &e_num, int &f_num, int &p_num); //takes in inputs of pass-by references: elevators, floors, and passengers user wants 
+int CalcArrivals(int arrived_num, int p_num); //takes in all that have arrived and total passengers wanted, generates random number within range of two 
+void PrintPassengers(vector<queue<Passenger>> the_floors); //takes in vector of floors and their queue of passengers, prints who is waiting for the elevator
 
 void main() {
 	bool again = true;
 	while (again) {
-
+		//WELCOMING MESSAGE:
 		cout << "Welcome to the Elevator Simulation! \nPlease insert a number corresponding to one of the options below: \n" << endl;
 		cout << "1.Start Simulation\n" << "2.Exit\n" << endl;
 		int choice;
 		cin >> choice;
-
+		//START SIMULATION:
 		if (choice == 1) {
 			int e_num = -1; //#elevators
 			int f_num = -1; //#floors
 			int p_num; //#passengers
 
-			getInput(e_num, f_num, p_num);
+			getInput(e_num, f_num, p_num); //gather input
 
 			Building My_Building(e_num, f_num); //pass #elevators and #floors
 
@@ -41,7 +41,7 @@ void main() {
 
 			while (num_exited < p_num) { //while there are still passengers who haven't made it to their destination
 				cout << "\n--------------------- COUNT:" << count << " --------------------------- \n";
-				
+
 				int new_arrivals = CalcArrivals(num_arrived, p_num);
 
 				//UPDATE NUM_ARRIVED AND NEW ARRIVALS:
@@ -52,16 +52,14 @@ void main() {
 				for (int i = 0; i < new_arrivals; i++) {
 					Passenger the_passenger(count, IDNum_Count, f_num); //pass the current count & assign IDNumber
 					IDNum_Count++; //increment IDNum_Counter to give each passenger a unique ID (based on priority/ who got here first)
-					//cout << "Passenger " << the_passenger.getIDNum() << ": Current Floor [" << the_passenger.getCurrentFloor() << "], Destination: [" << the_passenger.getDestination() << "]\n";
+								   //cout << "Passenger " << the_passenger.getIDNum() << ": Current Floor [" << the_passenger.getCurrentFloor() << "], Destination: [" << the_passenger.getDestination() << "]\n";
 
 					My_Building.add_Passenger(the_passenger);//add passenger to Building's queue of passengers depending on floor
 				}
 
-				
 				//Print off each person on each floor to keep track of who is still waiting
 				vector<queue<Passenger>> the_floors = My_Building.get_FloorVec();
 				PrintPassengers(the_floors);
-				
 
 				//After adding the new passengers & data, have the building manager decide what all elevators should do next
 				My_Building.Decide();
@@ -71,11 +69,9 @@ void main() {
 
 				count++;
 			}
-
 			//After all passengers have exited the elevator, simulation is over, print the results
 			PrintResults(p_num, Exitors);
 		}
-
 		else if (choice == 2) { //if user wants to exit simulation
 			return;
 		}
@@ -93,7 +89,6 @@ void PrintResults(int pass_num, stack <Passenger> Pass_Stack)
 		sum += current.getWaitTime();
 		Pass_Stack.pop();
 	}
-
 	//OUTPUT AVERAGE:
 	cout << "                                    Average Wait Time: " << sum / pass_num << "\n__________________________________________________________";
 	cout << endl << endl;
@@ -105,10 +100,6 @@ void getInput(int &e_num, int &f_num, int &p_num) //input elevators, floors, and
 	//INPUT ELEVATORS:
 	cout << "Please enter the number of elevators you want: ";
 	cin >> e_num;
-	//while (e_num <= 0 || e_num > 10) { //must be in between 1-10
-		//cout << "You must enter a number between 1 and 10.\n";
-		//cin >> e_num;
-	//}
 	//INPUT FLOORS:
 	cout << "Please enter the number of floors you want in the building: ";
 	cin >> f_num;
@@ -132,11 +123,10 @@ int CalcArrivals(int arrived_num, int p_num)
 	//ALL PASSENGERS SIMULATED:
 	if (arrived_num >= p_num) //if the arrived passengers >= total passengers wanted
 		new_arrivals = 0;
-
 	//STILL NEED PASSENGERS:
 	else
 		new_arrivals = rand() % (p_num - arrived_num) + 1; //random # from 0 to (total passengers-already arrived) 
-	return new_arrivals; 
+	return new_arrivals;
 }
 
 void PrintPassengers(vector<queue<Passenger>> the_floors)
@@ -148,7 +138,4 @@ void PrintPassengers(vector<queue<Passenger>> the_floors)
 			the_floors[k].pop();
 		}
 	}
-
 }
-
-
