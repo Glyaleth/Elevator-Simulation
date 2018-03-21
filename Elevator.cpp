@@ -1,3 +1,8 @@
+//Saally Campos 
+//Chale Abad
+//Thomas Diggs
+//Mao Zheng
+
 #include "Elevator.h"
 #include <iostream>
 #include <vector>
